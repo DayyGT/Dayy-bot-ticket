@@ -1,0 +1,1 @@
+# Bot-ticket&#10;Discord Ticket Bot minimal by BLACKBOXAI&#10;&#10;## Setup&#10;1. Clone repo&#10;2. npm install&#10;3. Edit config.json (token, IDs)&#10;4. npm start&#10;&#10;## Features&#10;- /ticketorder panel&#10;- Ticket create/close/log&#10;- Status embed channel

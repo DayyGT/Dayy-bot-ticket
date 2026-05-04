@@ -1,11 +1,14 @@
-# Ticket-Only Bot Cleanup TODO
+# Refactor: Move secrets to .env
 
-## Status: Complete ✅ - Slash fixed!
+**Completed:**
+- [x] Create .env with all secrets
+- [x] Install dotenv
 
-### 1. [x] Update package.json
-### 2. [x] Update config.json
-### 3. [x] Update index.js (slash handler + deploy)
-### 4. [x] Update error monitoring
-### 5. [x] Deleted junk
-### 6. [x] npm install
-### 7. [x] Ready - npm start
+**Remaining:**
+- [ ] Update index.js (add dotenv, replace config)
+- [ ] Update utils/statusMonitor.js
+- [ ] Update commands/admin/ticketorder.js
+- [ ] Update events/Ticket.js
+- [ ] Empty config.json
+- [ ] git commit & push
+- [ ] Test bot

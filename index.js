@@ -1,9 +1,11 @@
 console.log('⏳ Starting Ticket Bot...');
 
+require('dotenv').config();
+
 const { Client, GatewayIntentBits, Collection, REST, Routes, ActivityType } = require('discord.js');
-const config = require('./config.json');
 const errorMonitoring = require('./utils/errormonitoring');
 const statusMonitor = require('./utils/statusMonitor');
+
 
 // Client
 const client = new Client({
@@ -30,9 +32,11 @@ client.once('ready', async () => {
   console.log(`✅ ${client.user.tag} ready!`);
   
   // Deploy
-  const rest = new REST().setToken(config.token);
+  const rest = new REST().setToken(process.env.TOKEN);
+
   try {
-    await rest.put(Routes.applicationCommands(config.clientId), { body: [ticketOrderCommand.data.toJSON()] });
+await rest.put(Routes.applicationCommands(process.env.CLIENT_ID), { body: [ticketOrderCommand.data.toJSON()] });
+
     console.log('✅ Command deployed');
   } catch (error) {
     console.error(error);
@@ -62,5 +66,6 @@ client.on('interactionCreate', async interaction => {
 
 errorMonitoring(client);
 
-client.login(config.token).catch(console.error);
+client.login(process.env.TOKEN).catch(console.error);
+
 

@@ -1,10 +1,11 @@
 const { EmbedBuilder } = require('discord.js');
-const config = require('../config.json');
+
 
 module.exports = (client) => {
   client.on('ready', async () => {
-    const channel = await client.channels.fetch(config.statusChannelId).catch(() => null);
+    const channel = await client.channels.fetch(process.env.STATUS_CHANNEL_ID).catch(() => null);
     if (!channel) return;
+
 
     const embed = new EmbedBuilder()
       .setTitle('🟢 Bot Status Online')
@@ -17,8 +18,9 @@ module.exports = (client) => {
   });
 
   const sendOfflineStatus = async () => {
-    const channel = await client.channels.fetch(config.statusChannelId).catch(() => null);
+    const channel = await client.channels.fetch(process.env.STATUS_CHANNEL_ID).catch(() => null);
     if (!channel) return;
+
 
     const embed = new EmbedBuilder()
       .setTitle('🔴 Bot Offline')

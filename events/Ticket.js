@@ -16,8 +16,8 @@ const {
 } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-const { CategoryTicketId, SELLER_ROLE_ID, ChannelLogTicketId } = require('../config.json');
 const ticketPath = path.join(__dirname, '../data/tickets.json');
+
 
 const loadTicketData = () => {
   if (!fs.existsSync(ticketPath)) return {};
@@ -55,13 +55,14 @@ module.exports = {
       const ticketChannel = await guild.channels.create({
         name: ticketName,
         type: ChannelType.GuildText,
-        parent: CategoryTicketId,
+        parent: process.env.CATEGORY_TICKET_ID,
         permissionOverwrites: [
           { id: guild.id, deny: [PermissionsBitField.Flags.ViewChannel] },
           { id: user.id, allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages] },
-          { id: SELLER_ROLE_ID, allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages] }
+          { id: process.env.SELLER_ROLE_ID, allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages] }
         ]
       });
+
 
       const ticketEmbed = new EmbedBuilder()
         .setTitle('🎟️ Ticket Support')
@@ -93,8 +94,9 @@ module.exports = {
       };
       saveTicketData(ticketData);
 
-      const logChannel = guild.channels.cache.get(ChannelLogTicketId);
+      const logChannel = guild.channels.cache.get(process.env.CHANNEL_LOG_TICKET_ID);
       if (logChannel) {
+
         const openComponents = [
           new ContainerBuilder()
             .setAccentColor(1507327)
@@ -151,8 +153,9 @@ module.exports = {
           }).catch(() => null);
         }
 
-        const logChannel = guild.channels.cache.get(ChannelLogTicketId);
+        const logChannel = guild.channels.cache.get(process.env.CHANNEL_LOG_TICKET_ID);
         if (logChannel) {
+
           const closeComponents = [
             new ContainerBuilder()
               .setAccentColor(16711715)

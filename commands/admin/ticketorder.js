@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js');
 const path = require('path');
-const { ADMIN_ROLE_ID } = require(path.join(__dirname, '../../config.json'));
+
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -8,12 +8,13 @@ module.exports = {
     .setDescription('Menampilkan panel ticket untuk order.'),
 
   async execute(interaction) {
-    if (!interaction.member.roles.cache.has(ADMIN_ROLE_ID)) {
+    if (!interaction.member.roles.cache.has(process.env.ADMIN_ROLE_ID)) {
       return interaction.reply({
         content: 'Kamu tidak memiliki izin untuk menjalankan perintah ini.',
         ephemeral: true,
       });
     }
+
 
     const embed = new EmbedBuilder()
       .setTitle('Ticket Order')
